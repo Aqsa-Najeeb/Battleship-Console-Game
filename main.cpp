@@ -59,23 +59,20 @@ void displayResult(int player1Score, int player2Score, int winner);
 
 void menuText()
 {
-    setColor(7, 0);
+    clearScreen();
 
-    // ---- Ship ----
-    cout << "                          |     |     |\n";
+    cout << "\n\n                          |     |     |\n";
     cout << "                         )_)   )_)   )_)\n";
     cout << "                        )___) )___) )___)\n";
     cout << "                       )____))____))_____)\\\n";
-    setColor(8, 0);
+   
     cout << "              _________|_____|_____|_______\\\\______\n";
     cout << "  ~~~~~~~~~~~~\\                                    /~~~~\n";
     cout << "  ~~~~~~~~~~~~~\\__________________________________/~~~~~\n";
-    cout << "  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
-    setColor(7, 0);
+    cout << "  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";
 
-    cout << "\n";
 
-    // ---- BATTLESHIP title ----
+    
     setColor(14, 0);
     cout << "  ____    _  _____ _____ _     _____ ____  _   _ ___ ____  \n";
     cout << " | __ )  / \\|_   _|_   _| |   | ____/ ___|| | | |_ _|  _ \\ \n";
@@ -84,7 +81,7 @@ void menuText()
     cout << " |____/_/   \\_\\_|   |_| |_____|_____|____/|_| |_|___|_|    \n";
     setColor(7, 0);
 
-    // ---- Tagline ----
+    
     cout << "\n";
     setColor(8, 0);
     cout << "                    ~ Console Game\n";
@@ -549,7 +546,7 @@ void clearScreen()
 
     if (!GetConsoleScreenBufferInfo(hConsole, &csbi))
     {
-        system("cls"); // fallback if API unavailable
+        system("cls");
         return;
     }
 
@@ -621,7 +618,6 @@ void showGameMenu()
                 while (!readInt(mode) || (mode != 1 && mode != 2))
                     cout << "Invalid input. Enter 1 or 2: ";
 
-                // Colour selection
                 do
                 {
                     cout << "\nChoose battleship colour:\n";
