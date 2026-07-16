@@ -11,6 +11,11 @@ using namespace std;
 
 int color;
 
+// theme
+
+int primColor = 13;
+int secColor = 10;
+
 void setColor(int textColor, int bgColor)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -73,7 +78,7 @@ void menuText()
 
 
     
-    setColor(14, 0);
+    setColor(primColor, 0);
     cout << "  ____    _  _____ _____ _     _____ ____  _   _ ___ ____  \n";
     cout << " | __ )  / \\|_   _|_   _| |   | ____/ ___|| | | |_ _|  _ \\ \n";
     cout << " |  _ \\ / _ \\ | |   | | | |   |  _| \\___ \\| |_| || || |_) |\n";
@@ -539,21 +544,7 @@ void vsComputer(char playerBoard[10][10], char computerBoard[10][10])
 
 void clearScreen()
 {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    DWORD cellCount, written;
-    COORD home = {0, 0};
-
-    if (!GetConsoleScreenBufferInfo(hConsole, &csbi))
-    {
-        system("cls");
-        return;
-    }
-
-    cellCount = csbi.dwSize.X * csbi.dwSize.Y;
-    FillConsoleOutputCharacter(hConsole, ' ', cellCount, home, &written);
-    FillConsoleOutputAttribute(hConsole, csbi.wAttributes, cellCount, home, &written);
-    SetConsoleCursorPosition(hConsole, home);
+    system("cls");
 }
 
 void showGameMenu()
@@ -566,29 +557,29 @@ void showGameMenu()
     {
         menuText();
 
-        setColor(11, 0);
+        setColor(secColor, 0); //Light Green
         cout << "  +====================================+\n";
         cout << "  |                                    |\n";
-        setColor(14, 0);
+        setColor(primColor, 0); // Light Purple
         cout << "  |         M A I N   M E N U         |\n";
-        setColor(11, 0);
+        setColor(secColor, 0);
         cout << "  |                                    |\n";
         cout << "  +====================================+\n";
         cout << "  |                                    |\n";
-        setColor(7, 0);
+        setColor(7, 0); //Light Gray
         cout << "  |  ";
-        setColor(14, 0); cout << " [1] ";
+        setColor(primColor, 0); cout << " [1] ";
         setColor(7, 0);  cout << " Start New Game              |\n";
         cout << "  |                                    |\n";
         cout << "  |  ";
-        setColor(14, 0); cout << " [2] ";
+        setColor(primColor, 0); cout << " [2] ";
         setColor(7, 0);  cout << " Instructions                |\n";
         cout << "  |                                    |\n";
         cout << "  |  ";
-        setColor(14, 0); cout << " [3] ";
+        setColor(primColor, 0); cout << " [3] ";
         setColor(7, 0);  cout << " Exit                        |\n";
         cout << "  |                                    |\n";
-        setColor(11, 0);
+        setColor(secColor, 0);
         cout << "  +====================================+\n";
         setColor(7, 0);
         cout << "\n  Enter your choice: ";
@@ -606,13 +597,21 @@ void showGameMenu()
                 string playername1, playername2;
                 int mode;
 
+                cout << endl;
+                cout << "=========================\n";
                 cout << "Enter Player 1 name: ";
                 cin >> playername1;
                 cin.ignore(10000, '\n');
 
-                cout << "\nSelect game mode:\n";
-                cout << "  1. Player vs Player\n";
-                cout << "  2. Player vs Computer\n";
+                cout << endl;
+                cout << "+===============================================+\n";
+                cout << "|     G A M E   M O D E   S E L E C T I O N     | \n";
+                cout << "+===============================================+\n";
+                cout << "|                                               |\n";
+                cout << "|  [1]       Player vs Player                   |\n";
+                cout << "|  [2]       Player vs Computer                 |\n";
+                cout << "|                                               |\n";
+                cout << "+===============================================+\n\n";
                 cout << "Your choice: ";
 
                 while (!readInt(mode) || (mode != 1 && mode != 2))
@@ -620,21 +619,48 @@ void showGameMenu()
 
                 do
                 {
-                    cout << "\nChoose battleship colour:\n";
-                    cout << "  1. Black\n  2. Blue\n  3. Green\n  4. Cyan\n";
-                    cout << "  5. Red\n  6. Magenta\n  7. Yellow\n";
+                    cout << endl;
+                    cout << "+=============================+\n";
+                    cout << "|      ";
+                    setColor(12, 0); cout << "S H I P   C O L O R";
+                    setColor(15, 0); cout << "    | \n";
+                    cout << "+=============================+\n";
+                    cout << "|                             |\n";
+                    cout << "|  [1]       ";
+                    cout << "Black";
+                    cout << "            |\n";
+                    cout << "|  [2]       ";
+                    setColor(1, 0); cout << "Blue"; setColor(15, 0);
+                    cout << "             |\n";
+                    cout << "|  [3]       ";
+                    setColor(2, 0); cout << "Green"; setColor(15, 0);
+                    cout << "            |\n";
+                    cout << "|  [4]       ";
+                    setColor(3, 0); cout << "Cyan"; setColor(15, 0);
+                    cout << "             |\n";
+                    cout << "|  [5]       ";
+                    setColor(4, 0); cout << "Red"; setColor(15, 0);
+                    cout << "              |\n";
+                    cout << "|  [6]       ";
+                    setColor(5, 0); cout << "Magenta"; setColor(15, 0);
+                    cout << "          |\n";
+                    cout << "|  [7]       ";
+                    setColor(6, 0); cout << "Yellow"; setColor(15, 0);
+                    cout << "           |\n";
+                    cout << "|                             |\n";
+                    cout << "+=============================+\n\n";
                     cout << "Enter colour (1-7): ";
 
                     if (!readInt(color))
                     {
-                        cout << "Invalid input. Try again.\n";
+                        cout << "\nInvalid input. Try again.\n";
                         continue;
                     }
 
                     color--;
 
                     if (color < 0 || color > 6)
-                        cout << "Invalid input. Try again.\n";
+                        cout << "\nInvalid input. Try again.\n";
                     else
                         break;
                 } while (true);
@@ -646,6 +672,8 @@ void showGameMenu()
 
                 if (mode == 1)
                 {
+                    cout << endl;
+                    cout << "=========================\n";
                     cout << "Enter Player 2 name: ";
                     cin >> playername2;
                     cin.ignore(10000, '\n');
@@ -665,21 +693,21 @@ void showGameMenu()
                 cout << "\n";
                 cout << "  +====================================+\n";
                 cout << "  |                                    |\n";
-                cout << "  |      I N S T R U C T I O N S      |\n";
+                cout << "  |      I N S T R U C T I O N S       |\n";
                 cout << "  |                                    |\n";
                 cout << "  +====================================+\n";
                 cout << "  |                                    |\n";
-                cout << "  |  1. Each player places 5 ships.   |\n";
-                cout << "  |     Ships cannot overlap.         |\n";
+                cout << "  |  1. Each player places 5 ships.    |\n";
+                cout << "  |     Ships cannot overlap.          |\n";
                 cout << "  |                                    |\n";
                 cout << "  |  2. Players take turns attacking   |\n";
-                cout << "  |     the opponent's grid.          |\n";
+                cout << "  |     the opponent's grid.           |\n";
                 cout << "  |                                    |\n";
-                cout << "  |  3. X = Hit    O = Miss           |\n";
+                cout << "  |  3. X = Hit    O = Miss            |\n";
                 cout << "  |                                    |\n";
-                cout << "  |  4. Sink ALL enemy ships to win!  |\n";
+                cout << "  |  4. Sink ALL enemy ships to win!   |\n";
                 cout << "  |                                    |\n";
-                cout << "  |  5. Score: +10 hit  -1 miss       |\n";
+                cout << "  |  5. Score: +10 hit  -1 miss        |\n";
                 cout << "  |                                    |\n";
                 cout << "  +====================================+\n";
                 cout << "\n  Press Enter to return to the menu...";
@@ -691,7 +719,7 @@ void showGameMenu()
             case 3:
             {
                 clearScreen();
-                setColor(14, 0);
+                setColor(13, 0);
                 cout << "\n\n  Thanks for playing BATTLESHIP.\n\n";
                 setColor(7, 0);
                 break;
